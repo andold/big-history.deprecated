@@ -1,11 +1,13 @@
 #!/bin/bash
 #
 #
-PROFILE=opi5
-THIS_SCRIPT_FILE_NAME=install-bhistory-$PROFILE.sh
+PROJECT=big-history
+VERSION=0.0.1-SNAPSHOT
+PROFILE=linux
+THIS_SCRIPT_FILE_NAME=install-$PROJECT-$PROFILE.sh
 HOME_DIR=/home/andold
-SOURCE_DIR=$HOME_DIR/src/github/big-history
-DEPLOY_DIR=$HOME_DIR/deploy/bhistory
+SOURCE_DIR=$HOME_DIR/src/github/$PROJECT
+DEPLOY_DIR=$HOME_DIR/deploy/$PROJECT
 TOMCAT_BIN_DIR=$HOME_DIR/apps/tomcat/bin
 #
 #
@@ -72,11 +74,13 @@ function	start_tomcat    {
 #
 # build 
 #
-cd	$SOURCE_DIR
+cd $SOURCE_DIR
 #
 git clean -f
 #
+#
 # react npm install
+#
 cd	$SOURCE_DIR/src/main/frontend
 #
 npm install --no-bin-links --force
@@ -84,27 +88,34 @@ npm audit fix --force
 npm install react-scripts@latest --save
 #
 #
+#
+#
 cd	$SOURCE_DIR
 #
 bash gradlew build -Pprofile=$PROFILE -x test
 #
+#
 # deploy and restart tomcat
 #
-stop_tomcat    $TOMCAT_BIN_DIR
+stop_tomcat $TOMCAT_BIN_DIR
 #
 echo "Remove file in $DEPLOY_DIR/doc_base"
-cd	$DEPLOY_DIR/doc_base
+cd $DEPLOY_DIR/doc_base
 rm -fr *
 #
 #
-FILE_NAME_WAR=$SOURCE_DIR/build/libs/big-history-0.0.1-SNAPSHOT.war
+#
+#
+FILE_NAME_WAR=$SOURCE_DIR/build/libs/$PROJECT-$VERSION.war
 echo "Extract files from in $FILE_NAME_WAR"
 jar -xf $FILE_NAME_WAR
 #
-start_tomcat     $TOMCAT_BIN_DIR
+start_tomcat $TOMCAT_BIN_DIR
+#
 #
 # copy myself install script file
 #
 cd $DEPLOY_DIR
-cp $SOURCE_DIR/src/main/resources-$PROFILE/$THIS_SCRIPT_FILE_NAME	$DEPLOY_DIR
+cp $SOURCE_DIR/src/main/resources-$PROFILE/$THIS_SCRIPT_FILE_NAME $DEPLOY_DIR
 chmod a+x $THIS_SCRIPT_FILE_NAME
+#

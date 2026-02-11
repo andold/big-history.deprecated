@@ -44,7 +44,7 @@ repositories {
 }
 
 dependencies {
-	implementation("kr.andold:utils:0.0.8-SNAPSHOT")
+	implementation("kr.andold:utils:0.1.1")
 	implementation("org.postgresql:postgresql:42.7.4")
 	implementation("org.antlr:antlr4:4.10.1")
 	implementation("org.antlr:antlr4-runtime:4.10.1")

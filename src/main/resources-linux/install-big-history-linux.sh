@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 #
-PROJECT=bhistory
+PROJECT=big-history
 VERSION=0.0.1-SNAPSHOT
 PROFILE=linux
 THIS_SCRIPT_FILE_NAME=install-$PROJECT-$PROFILE.sh
-DEPLOY_SCRIPT_FILE_NAME=deploy.sh
+DEPLOY_SCRIPT_FILE_NAME=deploy-$PROJECT-$PROFILE.sh
 HOME_DIR=/home/andold
-SOURCE_DIR=$HOME_DIR/src/github/big-history
+SOURCE_DIR=$HOME_DIR/src/github/$PROJECT
 DEPLOY_DIR=$HOME_DIR/deploy/$PROJECT
 TOMCAT_BIN_DIR=$HOME_DIR/apps/tomcat/bin
 #
