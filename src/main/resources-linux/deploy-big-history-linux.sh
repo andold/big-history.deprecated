@@ -79,15 +79,6 @@ cd $SOURCE_DIR
 git clean -f
 #
 #
-# react npm install
-#
-cd	$SOURCE_DIR/src/main/frontend
-#
-npm install --no-bin-links --force
-npm audit fix --force
-npm install react-scripts@latest --save
-#
-#
 #
 #
 cd	$SOURCE_DIR

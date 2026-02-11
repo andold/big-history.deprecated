@@ -91,10 +91,7 @@ test {
 	useJUnitPlatform()
 }
 
-def webappDir = "$projectDir/src/main/frontend"
-
 println "projectDir: $projectDir"
-println "webappDir: $webappDir"
 
 if (project.hasProperty("profile")) {
 	println "profile: ${profile}"
@@ -114,33 +111,4 @@ if (project.hasProperty("profile")) {
 			}
 		}
 	}
-}
-
-processResources {
-    dependsOn "copyWebApp"
-}
-task copyWebApp(type: Copy) {
-	println "copyWebApp: from($webappDir/build) into($projectDir/src/main/resources/static)."
-	dependsOn "buildAdmin"
-	from "$webappDir/build"
-	into "$projectDir/src/main/resources/static"
-}
-/*
-compileJava.dependsOn copyWebApp
-*/
-
-node {
-	version = "20.17.0"
-	npmVersion = "9.1.2"
-	download = true
-	nodeProjectDir = file("$webappDir")
-}
-
-task buildAdmin(type: NpmTask) {
-	inputs.dir("$webappDir/src")
-    args = ["run", "build"]
-}
-
-rootProject.tasks.named("processResources") {
-	duplicatesStrategy = "include"
 }
